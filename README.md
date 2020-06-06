@@ -1,3 +1,20 @@
+## Configurar ambiente:
+- Instalar node e npm (eles vem juntos) https://nodejs.org/en/download/ 
+- Colocar executáveis do node como variáveis de ambiente do sistema. https://www.tutorialspoint.com/nodejs/nodejs_environment_setup.htm
+- Abrir cmd ou bash no diretório raiz e instalar dependências.
+```bash
+cd modulos-de-logica
+npm install .
+```
+- Ainda no diretório raiz, executar npm start
+```bash
+npm start
+```
+> PS: os comandos que começam com npm só vão funcionar se npm estiver corretamente no PATH do seu sistema
+
+
+# O restante do markdown veio do create-react-app, e fica aí como referência.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
