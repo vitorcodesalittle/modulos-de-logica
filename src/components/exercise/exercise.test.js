@@ -1,9 +1,10 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
-import { render } from '@testing-library/react';
-import App from './App';
+import { render, act } from '@testing-library/react';
+import Exercise from './exercise';
 let container = null;
-describe("App", () => {
+
+describe("O Component Exercise", () => {
 
   beforeEach(() => {
     // configurar o elemento do DOM como o alvo da renderização
@@ -19,9 +20,11 @@ describe("App", () => {
     container.remove();
     container = null;
   });
-  test("App renderiza", () => {
-    const { getByText, baseElement } = render(<App/>, container);
-    expect(baseElement).toBeInTheDocument();
-  })
 
+  test("renderiza corretamente", () => {
+    const exerciseEnunciate = "lalalala";
+    const { getByText, ...stuff } = render(<Exercise enunciate={exerciseEnunciate}/>, container);
+    let exerciseElement = getByText(new RegExp(`${exerciseEnunciate}`));
+    expect(exerciseElement).toBeInTheDocument();
+  })
 })
