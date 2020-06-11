@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import test from './classes/test';
+import test from './packages/test';
 
 function App() {
 
