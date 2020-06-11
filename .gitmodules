@@ -1,0 +1,3 @@
+[submodule "src/packages/vulcan"]
+	path = src/packages/vulcan
+	url = https://github.com/RyanMarcus/vulcan.git
