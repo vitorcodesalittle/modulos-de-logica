@@ -12,6 +12,27 @@ npm start
 ```
 > PS: os comandos que começam com npm só vão funcionar se npm estiver corretamente no PATH do seu sistema
 
+## Escrevendo testes:
+- Na pasta do módulo que vc quer testar crie um arquivo de testes, onde ficarão seus testes
+```bash
+<nome-do-modulo>.test.js
+```
+- Crie um teste
+```js
+import Modulo from "./modulo";
+describe("Modulo", () => {
+  test("Modulo faz tal coisa...", () => {
+    let a = Modulo.talCoisa();
+    expect(a).toBeTruthy()
+  })
+})
+```
+> Documentação do expect: https://jestjs.io/docs/en/expect
+## Rodando os testes:
+```bash
+npm run test
+a # para rodar todos os testes
+```
 
 # O restante do markdown veio do create-react-app, e fica aí como referência.
 
