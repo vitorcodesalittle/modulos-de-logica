@@ -12,7 +12,7 @@ npm start
 ```
 > PS: os comandos que começam com npm só vão funcionar se npm estiver corretamente no PATH do seu sistema
 
-## Escrevendo testes:
+## Escrevendo testes de unidade:
 - Na pasta do módulo que vc quer testar crie um arquivo de testes, onde ficarão seus testes
 ```bash
 <nome-do-modulo>.test.js
