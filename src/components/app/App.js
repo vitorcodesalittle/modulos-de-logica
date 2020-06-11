@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import logo from '../../assets/images/logo.svg';
 import './App.css';
 
-import test from './packages/test';
 
 function App() {
 
   
-  useEffect(() => {
-    test();
-    
+  useEffect(() => {    
     return () => {}
   }, [  ])
 
