@@ -27,7 +27,7 @@ const parse = (formula) => {
     // (!a)
     if (formula[1] === NOT_OPERATOR) {
       result.parsedOperator = NOT_OPERATOR;
-      result.pedacoFormulaDireita = formula.slice(2, formula.length-2)
+      result.pedacoFormulaDireita = formula.slice(2, formula.length-1)
       return result;
     }
     for (let i = 1; i < formula.length - 1; i++) {
@@ -41,21 +41,21 @@ const parse = (formula) => {
           if (openedParenthesis === 0) {
             let offset = 2;
             result.parsedOperator = IMPLY_OPERATOR
-            result.pedacoFormulaEsquerda = formula.slice(1, i-1)
-            result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-2)
+            result.pedacoFormulaEsquerda = formula.slice(1, i)
+            result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-1)
           }
       } else if (char === IFF_OPERATOR[0]) {  
           if (openedParenthesis === 0) {
             result.parsedOperator = '<->';
             let offset = 3;
-            result.pedacoFormulaEsquerda = formula.slice(1, i-1)
-            result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-2)
+            result.pedacoFormulaEsquerda = formula.slice(1, i)
+            result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-1)
           }
       } else if (char === NOT_OPERATOR || char === OR_OPERATOR) { // '&' '|'
         if (openedParenthesis === 0) {
           result.parsedOperator = char;
-          result.pedacoFormulaEsquerda = formula.slice(1, i-1)
-          result.pedacoFormulaDireita = formula.slice(i+1, formula.length-2)
+          result.pedacoFormulaEsquerda = formula.slice(1, i)
+          result.pedacoFormulaDireita = formula.slice(i+1, formula.length-1)
         }
       }
     }
@@ -88,6 +88,9 @@ const OPERATORS = [
 // ( (!a) <-> c )
 class FormulaProp {
   constructor(formula) {
+    if (!formula) {
+      throw new Error("formula não pode ser vazia");
+    }
     this.left = null;
     this.right = null;
     this.operator = null;
@@ -98,17 +101,18 @@ class FormulaProp {
         pedacoFormulaDireita,
         parsedOperator
       } = formulaParseada;
-      console.log('formulaParseada', formulaParseada)
       if (!parsedOperator) {
         this.right = pedacoFormulaDireita;
       } else if(parsedOperator === NOT_OPERATOR) {
-        this.right = pedacoFormulaDireita;
         this.operator = parsedOperator
+        this.right = new FormulaProp(pedacoFormulaDireita);
       } else {
         this.left = new FormulaProp(pedacoFormulaEsquerda)
         this.right = new FormulaProp(pedacoFormulaDireita)
         this.operator = parsedOperator
       }
+    } else {
+      throw new Error("formula não bem formada")
     }
   }
 
@@ -122,7 +126,7 @@ class FormulaProp {
       return this.right;
     } else {
       if (this.isOpUnary()) {
-        return `(${NOT_OPERATOR}${this.right.toString()})`
+        return `(${this.operator}${this.right.toString()})`
       } else {
         return `(${this.left.toString()} ${this.operator} ${this.right.toString()})`
       }
