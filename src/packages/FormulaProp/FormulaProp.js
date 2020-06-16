@@ -3,11 +3,31 @@
  * 
  * ( (!a) <-> (!(a & b)) )
  */
+
+const NOT_OPERATOR = '!';
+const AND_OPERATOR = '&';
+const OR_OPERATOR = '|';
+const IMPLY_OPERATOR = '->';
+const IFF_OPERATOR = '<->';
+
+const OPERATORS = [
+  NOT_OPERATOR,
+  AND_OPERATOR,
+  OR_OPERATOR,
+  IMPLY_OPERATOR,
+  IFF_OPERATOR
+]
+
 const removeParenthesis = string => string.slice(1, string.length-2 )
 
 const parseAux = () => {
 
 }
+
+const operatorThatStartsWith = OPERATORS.reduce((prev, cur) => {
+  prev[cur[0]] = cur;
+  return prev;
+}, {})
 
 /**
  * 
@@ -16,13 +36,6 @@ const parseAux = () => {
  * @return {{ pedacoFormulaEsquerda: string, pedacoFormulaDireita: string, operator: string }}
  */
 
- const operatorThatStartsWith = {
-   '-' : '->',
-   '<' : '<->',
-   '!': '!',
-   '&': '&',
-   '|': '|'
- }
 const parse = (formula) => {
   let openedParenthesis = 0;
 
@@ -66,19 +79,6 @@ const parse = (formula) => {
  */
 const formulaIsValida = (formula) => true;
 
-const NOT_OPERATOR = '!';
-const AND_OPERATOR = '&';
-const OR_OPERATOR = '|';
-const IMPLY_OPERATOR = '->';
-const IFF_OPERATOR = '<->';
-
-const OPERATORS = [
-  NOT_OPERATOR,
-  AND_OPERATOR,
-  OR_OPERATOR,
-  IMPLY_OPERATOR,
-  IFF_OPERATOR
-]
 // ( (!a) <-> c )
 class FormulaProp {
   constructor(formula) {
