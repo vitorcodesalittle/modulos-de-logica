@@ -18,12 +18,6 @@ const OPERATORS = [
   IFF_OPERATOR
 ]
 
-const removeParenthesis = string => string.slice(1, string.length-2 )
-
-const parseAux = () => {
-
-}
-
 const operatorThatStartsWith = OPERATORS.reduce((prev, cur) => {
   prev[cur[0]] = cur;
   return prev;
