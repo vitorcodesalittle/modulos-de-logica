@@ -51,7 +51,7 @@ const parse = (formula) => {
             result.pedacoFormulaEsquerda = formula.slice(1, i)
             result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-1)
           }
-      } else if (char === NOT_OPERATOR || char === OR_OPERATOR) { // '&' '|'
+      } else if (char === AND_OPERATOR || char === OR_OPERATOR) { // '&' '|'
         if (openedParenthesis === 0) {
           result.parsedOperator = char;
           result.pedacoFormulaEsquerda = formula.slice(1, i)
