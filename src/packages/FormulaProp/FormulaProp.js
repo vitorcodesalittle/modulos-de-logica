@@ -69,8 +69,8 @@ const formulaIsValida = (formula) => true;
 const NOT_OPERATOR = '!';
 const AND_OPERATOR = '&';
 const OR_OPERATOR = '|';
-const IMPLY_OPERATOR = '';
-const IFF_OPERATOR = '#';
+const IMPLY_OPERATOR = '->';
+const IFF_OPERATOR = '<->';
 
 const OPERATORS = [
   NOT_OPERATOR,
@@ -122,7 +122,7 @@ class FormulaProp {
       if (this.isOpUnary()) {
         return `(${this.operator}${this.right.toString()})`
       } else {
-        return `(${this.left.toString()} ${this.operator} ${this.right.toString()})`
+        return `(${this.left.toString()}${this.operator}${this.right.toString()})`
       }
     }
   }
