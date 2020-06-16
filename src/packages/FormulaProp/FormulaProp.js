@@ -15,6 +15,14 @@ const parseAux = () => {
  * 
  * @return {{ pedacoFormulaEsquerda: string, pedacoFormulaDireita: string, operator: string }}
  */
+
+ const operatorThatStartsWith = {
+   '-' : '->',
+   '<' : '<->',
+   '!': '!',
+   '&': '&',
+   '|': '|'
+ }
 const parse = (formula) => {
   let openedParenthesis = 0;
 
@@ -24,7 +32,6 @@ const parse = (formula) => {
     parsedOperator: null
   }
   if (formula[0] === '(') {
-    // (!a)
     if (formula[1] === NOT_OPERATOR) {
       result.parsedOperator = NOT_OPERATOR;
       result.pedacoFormulaDireita = formula.slice(2, formula.length-1)
@@ -37,25 +44,12 @@ const parse = (formula) => {
         openedParenthesis += 1;
       } else if (char === ')') {
         openedParenthesis -= 1;
-      } else if (char === IMPLY_OPERATOR[0]) {
-          if (openedParenthesis === 0) {
-            let offset = 2;
-            result.parsedOperator = IMPLY_OPERATOR
-            result.pedacoFormulaEsquerda = formula.slice(1, i)
-            result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-1)
-          }
-      } else if (char === IFF_OPERATOR[0]) {  
-          if (openedParenthesis === 0) {
-            result.parsedOperator = '<->';
-            let offset = 3;
-            result.pedacoFormulaEsquerda = formula.slice(1, i)
-            result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-1)
-          }
-      } else if (char === AND_OPERATOR || char === OR_OPERATOR) { // '&' '|'
+      } else if (operatorThatStartsWith[char]) { // verifica se existe uma primeira letra no array firstCharOfOp q é igual a char
         if (openedParenthesis === 0) {
-          result.parsedOperator = char;
+          result.parsedOperator = operatorThatStartsWith[char];
+          let offset = operatorThatStartsWith[char].length;
           result.pedacoFormulaEsquerda = formula.slice(1, i)
-          result.pedacoFormulaDireita = formula.slice(i+1, formula.length-1)
+          result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-1)
         }
       }
     }
