@@ -30,7 +30,7 @@ const operatorThatStartsWith = OPERATORS.reduce((prev, cur) => {
  * @return {{ pedacoFormulaEsquerda: string, pedacoFormulaDireita: string, operator: string }}
  */
 
-const parse = (formula) => {
+export const parse = (formula) => {
   let openedParenthesis = 0;
 
   let result = {
@@ -57,6 +57,7 @@ const parse = (formula) => {
           let offset = operatorThatStartsWith[char].length;
           result.pedacoFormulaEsquerda = formula.slice(1, i)
           result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-1)
+          return result;
         }
       }
     }
