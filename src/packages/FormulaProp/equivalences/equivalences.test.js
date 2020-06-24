@@ -47,4 +47,9 @@ describe("Os métodos de equivalência", () => {
       let B = Equivalences.deMorgan(A);
     }).toThrow(EquivalenceErrors.InvalidEquivalenceTransformException)
   })
+  test("método de equivalência lança erro quando recebe algo que não um objeto FormulaProp como param", () => {
+    expect(() => {
+      Equivalences.deMorgan("qualquer coisa");
+    }).toThrow()
+  })
 })

@@ -13,6 +13,10 @@ import { InvalidEquivalenceTransformException } from './equivalence-errors';
  * @throws {InvalidEquivalenceTransformException} 
  */
 export const distributiveAnd = (A) => {
+  if (!A instanceof FormulaProp) {
+    throw new Error("Essa função só aceita 1 parâmetro, que deve ser " + 
+    "uma instância de FormulaProp")
+  }
   try {
     const da = A.left;
     const dda = A.right;
@@ -47,6 +51,10 @@ export const distributiveAnd = (A) => {
  * @throws {InvalidEquivalenceTransformException}
  */
 export const distributiveOr= (A) => {
+  if (!A instanceof FormulaProp) {
+    throw new Error("Essa função só aceita 1 parâmetro, que deve ser " + 
+    "uma instância de FormulaProp")
+  }
   try {
     const da = A.left;
     const dda = A.right;
@@ -81,6 +89,10 @@ export const distributiveOr= (A) => {
  * @throws {InvalidEquivalenceTransformException}
  */
 export const eliminateImplication = (A) => {
+  if (!A instanceof FormulaProp) {
+    throw new Error("Essa função só aceita 1 parâmetro, que deve ser " + 
+    "uma instância de FormulaProp")
+  }
   try {
     if (!A.isImply()) {
       throw new InvalidEquivalenceTransformException(
@@ -108,6 +120,10 @@ export const eliminateImplication = (A) => {
  * @throws {InvalidEquivalenceTransformException}
  */
 export const deMorgan = (formula) => {
+  if (!formula instanceof FormulaProp) {
+    throw new Error("Essa função só aceita 1 parâmetro, que deve ser " + 
+    "uma instância de FormulaProp")
+  }
   try {
     if (!formula.isNot() || (!formula.right.isAnd() && !formula.right.isOr())) {
       throw new EquivalenceErrors.InvalidEquivalenceTransformException(
@@ -138,6 +154,10 @@ export const deMorgan = (formula) => {
  * @throws {InvalidEquivalenceTransformException}
  */
 export const eliminateDoubleNegation = (A) => {
+  if (!A instanceof FormulaProp) {
+    throw new Error("Essa função só aceita 1 parâmetro, que deve ser " + 
+    "uma instância de FormulaProp")
+  }
   if (!A.isNot() || !A.right.isNot()) {
     throw new EquivalenceErrors.InvalidEquivalenceTransformException(
       `${A.toString()} não é da forma (!(!F))`
