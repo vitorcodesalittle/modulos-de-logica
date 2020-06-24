@@ -3,11 +3,9 @@ import FormulaProp, { parse } from '../FormulaProp';
 import {
   NOT_OPERATOR,
   OR_OPERATOR,
-  AND_OPERATOR,
-  IMPLY_OPERATOR,
-  IFF_OPERATOR,
-  OPERATORS
+  AND_OPERATOR
 } from '../operator-types';
+import { InvalidEquivalenceTransformException } from './equivalence-errors';
 
 /**
  * (A & (B | C)) eqs ((A & B) | (A & C))
@@ -78,21 +76,60 @@ export const distributiveOr= (A) => {
 }
 
 /**
- * 
+ * (A -> B) eqs ((!A) | B)
  * @param {FormulaProp} A 
  * @throws {InvalidEquivalenceTransformException}
  */
 export const eliminateImplication = (A) => {
-
+  try {
+    if (!A.isImply()) {
+      throw new InvalidEquivalenceTransformException(
+        `${A.toString()} não é uma fórmula do tipo (A->B)`
+      )
+    }
+    return new FormulaProp(
+      "(" +
+        "(" +
+          NOT_OPERATOR + A.left.toString() +
+        ")" + 
+        OR_OPERATOR + 
+        A.right.toString() +
+      ")"
+    )
+  } catch(err) {
+    throw err;
+  }
 }
 
 /**
- * 
+ * (!(A&B)) eqs ((!A)|(!B))
+ * (!(A|B)) eqs ((!A)&(!B))
  * @param {FormulaProp} A 
  * @throws {InvalidEquivalenceTransformException}
  */
-export const deMorgan = (A) => {
-
+export const deMorgan = (formula) => {
+  try {
+    if (!formula.isNot() || (!formula.right.isAnd() && !formula.right.isOr())) {
+      throw new EquivalenceErrors.InvalidEquivalenceTransformException(
+        `${formula.toString()} não é da forma (!(F1&F2)) ou (!(F1|F2))`
+      )
+    }
+    const A = formula.right.left;
+    const B = formula.right.right;
+    return new FormulaProp(
+      "(" +
+        "(" +
+          NOT_OPERATOR + A.toString() +
+        ")" +
+       ( formula.right.isAnd() ? OR_OPERATOR : AND_OPERATOR) +
+        "(" +
+          NOT_OPERATOR + B.toString() +
+        ")" +
+      ")"
+    )
+  } catch(err) {
+    throw err;
+  }
 }
 
 /**
@@ -101,5 +138,13 @@ export const deMorgan = (A) => {
  * @throws {InvalidEquivalenceTransformException}
  */
 export const eliminateDoubleNegation = (A) => {
-  
+  if (!A.isNot() || !A.right.isNot()) {
+    throw new EquivalenceErrors.InvalidEquivalenceTransformException(
+      `${A.toString()} não é da forma (!(!F))`
+    )
+  }
+  return new FormulaProp(
+    A.right.right.toString()
+  )
 }
+
