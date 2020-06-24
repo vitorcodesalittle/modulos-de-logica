@@ -49,7 +49,32 @@ export const distributiveAnd = (A) => {
  * @throws {InvalidEquivalenceTransformException}
  */
 export const distributiveOr= (A) => {
-
+  try {
+    const da = A.left;
+    const dda = A.right;
+    if (A.isAtom() || !A.isOr() || !dda.isAnd()) {
+      throw new EquivalenceErrors.InvalidEquivalenceTransformException(
+        `${A.toString()} não é uma fórmula do tipo (F1|(F2&F3))`
+      )
+    }
+    return new FormulaProp(
+      "(" +
+        "(" +
+            da.toString() + 
+            OR_OPERATOR + 
+            dda.left.toString()+
+        ")" +
+        AND_OPERATOR +
+        "(" +
+          da.toString() + 
+          OR_OPERATOR + 
+          dda.right.toString() +
+        ")" +
+      ")"
+    )
+  } catch (err) {
+    throw err;
+  }
 }
 
 /**

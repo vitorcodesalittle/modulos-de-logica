@@ -17,11 +17,11 @@ describe("Os métodos de equivalência", () => {
     let B = Equivalences.distributiveAnd(A);
     expect(B.toString()).toBe('((a&b)|(a&c))')
   })
-  // test("(a|(b&c)) equivale a ((a|b)&(a|c))", () => {
-  //   let A = new FormulaProp('(a|(b&c))');
-  //   let B = Equivalences.distributiveOr(A);
-  //   expect(B.toString()).toBe('((a|b)&(a|c))')
-  // })
+  test("(a|(b&c)) equivale a ((a|b)&(a|c))", () => {
+    let A = new FormulaProp('(a|(b&c))');
+    let B = Equivalences.distributiveOr(A);
+    expect(B.toString()).toBe('((a|b)&(a|c))')
+  })
   // test("(!(!a)) equivale a a", () => {
   //   let A = new FormulaProp('(!(!a))')
   //   let B = Equivalences.eliminateDoubleNegation(A);
