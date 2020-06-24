@@ -1,23 +1,11 @@
-
-/**
- * 
- * ( (!a) <-> (!(a & b)) )
- */
-
-const NOT_OPERATOR = '!';
-const AND_OPERATOR = '&';
-const OR_OPERATOR = '|';
-const IMPLY_OPERATOR = '->';
-const IFF_OPERATOR = '<->';
-
-const OPERATORS = [
+import {
   NOT_OPERATOR,
-  AND_OPERATOR,
   OR_OPERATOR,
+  AND_OPERATOR,
   IMPLY_OPERATOR,
-  IFF_OPERATOR
-]
-
+  IFF_OPERATOR,
+  OPERATORS
+} from './operator-types';
 const operatorThatStartsWith = OPERATORS.reduce((prev, cur) => {
   prev[cur[0]] = cur;
   return prev;
@@ -27,7 +15,11 @@ const operatorThatStartsWith = OPERATORS.reduce((prev, cur) => {
  * 
  * @param {string} formula 
  * 
- * @return {{ pedacoFormulaEsquerda: string, pedacoFormulaDireita: string, operator: string }}
+ * @return {{ 
+ * pedacoFormulaEsquerda: string, 
+ * pedacoFormulaDireita: string, 
+ * parsedOperator: string 
+ * }}
  */
 
 export const parse = (formula) => {
