@@ -1,7 +1,7 @@
 class Tableaux {
-  constructor() {
+    constructor() {
 
-  }
+    }
 }
 
 export default Tableaux;

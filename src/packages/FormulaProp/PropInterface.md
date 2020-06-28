@@ -1,6 +1,6 @@
 # Application Programing Interface
 
-## Construtor
+## Constructor
 	(str_formula) => Obj PROP
 	str_formula: string
 
@@ -9,52 +9,45 @@
 - lança uma excessão caso 'str_formula' não esteja bem formada
 
 
-## Propriedades
+## Properties
 
 - Operador: 
 	- > formula.operator
-	- null quando for atômico
+	- null quando for Átomo
 
-- Subformula a esquerda:
+- Subformula à esquerda:
 	- > formula.left
 	- null quando operador for Negação
 
-- Subformula a direita:
+- Subformula à direita:
 	- > formula.right
 
-- Tamanho da Árvore Síntatica
-	- > formula.height
 
-- Lista de Variavéis
-	- > formula.variables
-	- array contendo as variaveis da formula
+## Methods
 
-
-## Metodos
-
-- Verificador de fórmulas
-	- > PROP.verify(str)
+- Verificador de fórmulas:
+	- > word.verify(str)
 		- (string) => boolean
 
-- Pegar o operador do escopo externo
+- Pegar o operador do escopo externo:
 	- > formula.getOperator()
 		- () => operator
 
-	- () => boolean
+	- () => boolean:
 		- > formula.isAtom()
 		- > formula.isNot()
 		- > formula.isAnd()
 		- > formula.isOr()
 		- > formula.isImply()
 
-- Pegar a subfórmula a esquerda e direita do operador
+- Pegar a subfórmula à esquerda e à direita do operador:
 	- > formula.left()
 		- () => PROP
 
 	- > formula.right()
 		- () => PROP
 
-- Aplicar valor verdade a fórmula
+- Aplicar valor verdade à fórmula:
 	- > formula.evaluate([values])
 		- ( [values] ) => boolean
 		- values: array contendo os valores para cada variável
@@ -70,17 +63,17 @@
 - Regras de Equivalência:
 	- () => void: Fórmula é alterada internamente
 
-	- Eliminar Dupla Negação
+	- Eliminar Dupla Negação:
 		- > formula.opNegation()
 
-	- Eliminição Implicação
+	- Eliminição Implicação:
 		- > formula.opImplication()
 
-	- Regras de De Morgan
+	- Regras de De Morgan:
 		- > formula.deMorgan()
 
-	- Distribuir a direita do E/OU
+	- Distribuir a direita do E/OU:
 		- > formula.rightDistribute()
 
-	- Distribuir a esquerda do E/OU
+	- Distribuir a esquerda do E/OU:
 		- > formula.leftDistribute()
