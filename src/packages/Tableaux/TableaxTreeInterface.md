@@ -2,12 +2,12 @@
 
 
 ## Constuctor
-(sentence, boolean) => Obj TableauxTree
-	sentence: PROP
+(formula, booleanValue) => Obj TableauxTree
+	formula: PROP
 
 - > let tableauxTree = new TableauxTree()
 
-- lança uma excessão caso 'sentence' não seja um objeto PROP
+- lança uma excessão caso 'formula' não seja um objeto PROP
 
 
 ## Proprerties
@@ -17,7 +17,7 @@
 	- null quando for Átomo
 
 - Valor booleano:
-    - > tableauxTree.valueBoolean
+    - > tableauxTree.booleanValue
 
 - Nó à direita:
 	- > tableauxTree.right
@@ -26,6 +26,9 @@
 	- > tableauxTree.left
 	- null quando operador for Negação
 
+- Formato:
+	- > tableauxTree.fork
+	- true quando bifurcar, false quando não
 
 ## Methods
 
@@ -36,19 +39,57 @@
     - > tableauxTree.LeftSubtree()
 	    - () => tableauxTree
 
+- Transformando fórmula em trecho de árvore:
+
+	- > tableauxTree.makeNode()
+		if tableauxTree.isLeaf():
+			return "formula = value";
+		else:
+			if op == NOT && value == True:
+				tableauxTree.rigth(formula.right(), False);
+			if op == NOT && value == False:
+				tableauxTree.rigth(formula.right(), True);
+			if op == AND && value == True:
+				tableauxTree.rigth(formula.right(), True);
+				tableauxTree.left(formula.left(), True);
+			if op == AND && value == False:
+				tableauxTree.rigth(formula.right(), True);
+				tableauxTree.left(formula.left(), True);
+				fork = True; 
+			if op == OR && value == True:
+				tableauxTree.rigth(formula.right(), True);
+				tableauxTree.left(formula.left(), True);
+				fork = True; 
+			if op == OR && value == False:
+				tableauxTree.rigth(formula.right(), True);
+				tableauxTree.left(formula.left(), True);
+			if op == IMPLY && value == True:
+				tableauxTree.rigth(formula.right(), True);
+				tableauxTree.left(formula.left(), True);
+				fork = True; 
+			if op == IMPLY && value == False:
+				tableauxTree.rigth(formula.right(), True);
+				tableauxTree.left(formula.left(), True);
+			if op == IFF && value == True:
+				tableauxTree.rigth(formula.right(), True);
+				tableauxTree.left(formula.left(), True);
+			if op == IFF && value == False:
+				tableauxTree.rigth(formula.right(), False);
+				tableauxTree.left(formula.left(), False); 
+
 - Pegar todos os ramos abertos e todos os ramos fechados:
-    - > tableauxTree.OpenBranches()		    	// backtracking (?)
+    - > tableauxTree.openBranches()		    	// backtracking (?)
 	    - () => lista de fórmulas PROP
 
-    - > tableauxTree.ClosedBranches()			// backtracking (?)
+    - > tableauxTree.closedBranches()			// backtracking (?)
 	    - () => lista de listas de fórmulas PROP
 
 - Pegar todas as valorações possíveis:
-    - > tableauxTree.PossibleValorations()
-	    - () => lista de listas de "variável = boolean"
+    - > tableauxTree.possibleValorations()
+	    - () => lista de listas de "variável = booleano"
 
 - Responder sobre satisfatibilidade:
-    - () => boolean
+    - () => booleanValue
 	    - > tableauxTree.isSatisfable()
 	    - > tableauxTree.isContradiction()
 	    - > tableauxTree.isRefutable()
@@ -56,15 +97,15 @@
 
 - O nó é uma folha?
     - > tableauxTree.isLeaf()
-	    - () => boolean
+	    - () => booleanValue
 
 - O nó bifurca?
     - > tableauxTree.isFork()
-        - () => boolean
+        - () => booleanValue
 
 - O tableaux é analítico?
     - > tableauxTree.isAnalitc()
-	    - () => boolean
+	    - () => booleanValue
 
 - Transformar o tableaux em tableaux analítico:
     - > tableauxTree.makeAnalitic()				// torna o tableaux analítico
