@@ -1,6 +1,6 @@
 class Branch {
 	constructor() {
-		this.values = [];
+		this.values = {};
 		this.primary_queue = [];
 		this.secundary_queue = [];
 	}
@@ -35,11 +35,22 @@ class Branch {
 		return value;
 	}
 
-	validate(variable, value) {}
+	validate(variable, value) {
+		const result = { error: false };
+		const exist = this.values[variable];
+		if (exist) {
+			if (exist !== value) {
+				result.error = true;
+			}
+		}else {
+			this.values[variable] = value;
+		}
+		return result;
+	}
 
 	copy() {
 		const copy = new Branch();
-		const copy_values = this.values.map(val => val);
+		const copy_values = Object.assign({}, this.values);
 		const copy_primary = this.primary_queue.map(node => node);
 		const copy_secundary = this.secundary_queue.map(node => node);
 
