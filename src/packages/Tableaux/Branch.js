@@ -6,7 +6,7 @@ class Branch {
 	}
 
 	empty() {
-		if (this.primary_queue.length > 0 || this.secundary_queue > 0) {
+		if (this.primary_queue.length > 0 || this.secundary_queue.length > 0) {
 			return false;
 		}else {
 			return true;

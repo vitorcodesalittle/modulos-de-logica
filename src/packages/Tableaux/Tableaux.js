@@ -27,24 +27,23 @@ class Tree {
 	}
 
 	show() {
+		console.log(this.node.formule.toString(), this.node.value);
 		if (this.left) {
 			this.left.show();
 		}
 		if (this.right) {
 			this.right.show();
 		}
-		console.log(this.node.formule.toString());
 	}
 
 	create() {
-		console.log(this.node.formule)
 		if (this.right) {
 			this.right.create();
 			return;
 		}
-
+		
 		const branch = stack.get();
-
+		
 		if (branch.empty()) {
 			stack.remove();
 			return;
@@ -104,9 +103,8 @@ class Tree {
 				this.right = new Tree(right_node);
 
 				this.left.create();
-				stack.remove();
-
 				this.right.create();
+
 				return;
 			}
 		}

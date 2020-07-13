@@ -8,7 +8,7 @@ class Branches {
 	}
 
 	remove() {
-		this.stack.pop();
+		return this.stack.pop();
 	}
 
 	get() {
