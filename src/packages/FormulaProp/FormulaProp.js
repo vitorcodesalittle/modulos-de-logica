@@ -33,7 +33,7 @@ export const parse = (formula) => {
   if (formula[0] === '(') {
     if (formula[1] === NOT_OPERATOR) {
       result.parsedOperator = NOT_OPERATOR;
-      result.pedacoFormulaDireita = formula.slice(2, formula.length-1)
+      result.pedacoFormulaDireita = formula.slice(2, formula.length-1).trim();
       return result;
     }
     for (let i = 1; i < formula.length - 1; i++) {
@@ -47,8 +47,8 @@ export const parse = (formula) => {
         if (openedParenthesis === 0) {
           result.parsedOperator = operatorThatStartsWith[char];
           let offset = operatorThatStartsWith[char].length;
-          result.pedacoFormulaEsquerda = formula.slice(1, i)
-          result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-1)
+          result.pedacoFormulaEsquerda = formula.slice(1, i).trim();
+          result.pedacoFormulaDireita = formula.slice(i+offset, formula.length-1).trim();
           return result;
         }
       }
