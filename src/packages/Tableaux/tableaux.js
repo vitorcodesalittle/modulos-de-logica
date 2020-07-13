@@ -39,9 +39,8 @@ class Node {
 	willBranch() {
 		const operator = this.formule.operator;
 		const value = this.value === 1 ? 'positive' : 'negative';
-		const result = branchResult[operator];
-
-		console.log(result);
+		const result = branchResult[operator][value];
+		
 		return result;
 	}
 }
