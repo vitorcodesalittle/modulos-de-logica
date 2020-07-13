@@ -7,15 +7,14 @@ const stack = new Branches();
 class Tableaux {
 	constructor(formule, value) {
 		const branch = new Branch();
-		const stack =  new Branches();
 
 		const node = new Node(formule, value);
 		branch.push(node);
 
 		stack.insert(branch);
-	
-		this.tableaux = new Tree(node);
-		this.tableaux.create();
+		
+		this.tree = new Tree(node);
+		this.tree.create();
 	}
 }
 
@@ -25,11 +24,20 @@ class Tree {
 
 		this.left = null;
 		this.right = null;
+	}
 
-		this.create();
+	show() {
+		if (this.left) {
+			this.left.show();
+		}
+		if (this.right) {
+			this.right.show();
+		}
+		console.log(this.node.formule.toString());
 	}
 
 	create() {
+		console.log(this.node.formule)
 		if (this.right) {
 			this.right.create();
 			return;
@@ -114,7 +122,13 @@ class Node {
 	willBranch() {
 		const operator = this.formule.operator;
 		const value = this.value === 1 ? 'positive' : 'negative';
-		const result = branchResult[operator][value];
+
+		let result;
+		if (this.formule.isAtom()){
+			result = { branch: false };
+		}else {
+			result = branchResult[operator][value];
+		}
 
 		return result;
 	}

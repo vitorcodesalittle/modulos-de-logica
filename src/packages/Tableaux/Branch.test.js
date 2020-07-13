@@ -1,6 +1,6 @@
 import Branch from './Branch';
 import { FormulaProp } from '../FormulaProp/index';
-import { Node } from './tableaux';
+import { Node } from './Tableaux';
 
 describe('Branch', () => {
 	test('Testa o metodo push()', () => {

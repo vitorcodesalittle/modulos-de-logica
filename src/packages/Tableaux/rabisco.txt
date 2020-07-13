@@ -1,0 +1,193 @@
+(a -> (b | c)) = 0
+
+-------------------------------
+GLOBAL
+
+stack = [ branch_0 ]
+tableaux = { tree_0 }
+
+-------------------------------
+LOCAL
+
+branch_0 = {
+	values: {},
+	primary: [ node_0 ],
+	secundary: [],
+}
+
+node_0 = {
+	formule: (a -> (b | c)),
+	value: 0,
+}
+
+tree_0 = {
+	node: node_0,
+	left: null,
+	right: null,
+}
+
+-------------------------------
+STACK
+
+this = {
+	node: node_0,
+	left: null,
+	right: tree_1,
+}
+
+branch_0 = {
+	values: {},
+	primary: [ left_node_0, right_node_0 ],
+	secundary: [],
+}
+
+node_0 =  {
+	formule: (a -> (b | c)),
+	value: 0,
+}
+
+split_branch = false
+left = 1
+right = 0
+
+left_node_0 = {
+	formule: a,
+	value: 1,
+}
+right_node_0 = {
+	formule: (b | c),
+	value: 0,
+}
+
+tree_1 = {
+	node: left_node_0,
+	left: null,
+	right: tree_2,
+}
+tree_2 = {
+	node: right_node_0,
+	left: null,
+	right: null,
+}
+
+-------------------------------
+tree_1
+
+this = {
+	node: left_node_0,
+	left: null,
+	right: tree_2,
+}
+
+-------------------------------
+tree_2
+
+this = {
+	node: right_node_0,
+	left: null,
+	right: tree_3,
+}
+
+branch_0 = {
+	values: { a: 1 },
+	primary: [ right_node_0 ],
+	secundary: [],
+}
+
+left_node_0 = {
+	formule: a,
+	value: 1,
+}
+
+right_node_1 = {
+	formule: a,
+	value: 1,
+}
+
+tree_3 = {
+	node: right_node_1,
+	left: null,
+	right: null,
+}
+
+-------------------------------
+tree_3
+
+this = {
+	node: right_node_1,
+	left: null,
+	right: tree_4,
+}
+
+branch_0 = {
+	values: { a: 1 },
+	primary: [ left_node_1, right_node_2 ],
+	secundary: [],
+}
+
+right_node_0 = {
+	formule: (b | c),
+	value: 0,
+}
+
+split_branch = false
+left = 0
+right = 0
+
+left_node_1 = {
+	formule: b,
+	value: 0,
+}
+right_node_2 = {
+	formule: c,
+	value: 0,
+}
+
+tree_4 = {
+	node: left_node_1,
+	left: null,
+	right: tree_5,
+}
+
+tree_5 = {
+	node: right_node_2,
+	left: null,
+	right: null,
+}
+
+-------------------------------
+tree_4
+
+this = {
+	node: right_node_1,
+	left: null,
+	right: tree_4,
+}
+
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------
+-------------------------------
+
+branch = {
+	values: {},
+	primary: [],
+	secundary: [],
+}
+
+tree = {
+	node: node,
+	left: null,
+	right: null,
+}
+
+node = {
+	formule: '',
+	value: _,
+}
+
