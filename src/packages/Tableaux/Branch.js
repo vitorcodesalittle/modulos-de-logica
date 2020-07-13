@@ -37,7 +37,18 @@ class Branch {
 
 	validate(variable, value) {}
 
-	copy() {}
+	copy() {
+		const copy = new Branch();
+		const copy_values = this.values.map(val => val);
+		const copy_primary = this.primary_queue.map(node => node);
+		const copy_secundary = this.secundary_queue.map(node => node);
+
+		copy.values = copy_values;
+		copy.primary_queue = copy_primary;
+		copy.secundary_queue = copy_secundary
+
+		return copy;
+	}
 }
 
 export default Branch;
