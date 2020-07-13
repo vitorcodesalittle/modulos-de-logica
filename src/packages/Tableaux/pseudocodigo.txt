@@ -4,6 +4,8 @@ Caso o nó possua filhos:
  -	Chama recursão no filho
  -	Encerra a recursão
 
+Pega referencia para branch no topo da pilha
+
 Caso a branch esteja vazia
  -	Encerra a recursão
 
@@ -14,18 +16,18 @@ Verifica se o elemento é átomo
 Se não for átomo verifica se:
 ele não bifurque:
  -	Avalia o elemento
- -	Inclui na branch as subformulas
  -	Cria os subnós que representam as subformulas
+ -	Inclui na branch as subformulas
  -	Acrescenta os subnós a árvore
  -	Chama a recursão no primeiro filho
  -	Encerra a recursão
 
 ele birfurcar:
  -	Cria uma copia da branch
+ -	Cria subnós para cada subformulas
  -	A subformula da esquerda é adicionada a copia da branch
  -	A subformula da direita é adicionada a branch original
  -	Adiciona copia da branch a pilha de branches
- -	Cria subnós para cada subformulas
  -	Os subnós são adicionados as subárvores que os representam
  -	Chama a recursão a esquerda
  -	Faz um pop no primeiro elemento da pilha
