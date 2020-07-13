@@ -81,4 +81,34 @@ describe('Branch', () => {
 		expect(result7).toBe(node3);
 		expect(result8).toBe(node6);
 	})
+
+	test('testa o metodo copy()', () => {
+		const prop = [
+			new FormulaProp('(a -> b)'),
+			new FormulaProp('(a & b)'),
+			new FormulaProp('(a | b)'),
+			new FormulaProp('(!a)'),
+		]
+
+		const node = [];
+		for (let i = 0; i < prop.length; i++) {
+			node.push(new Node(prop[i], 0));
+			node.push(new Node(prop[i], 1));
+		}
+
+		const branch = new Branch();
+		for (let i = 0; i < node.length; i++) {
+			branch.push(node[i]);
+		}
+
+		const copy_branch = branch.copy();
+
+		expect(copy_branch).toStrictEqual(branch);
+		
+		branch.pop();
+		expect(copy_branch).not.toStrictEqual(branch);
+
+		copy_branch.pop();
+		expect(copy_branch).toStrictEqual(branch);
+	})
 })
