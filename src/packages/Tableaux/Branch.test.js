@@ -111,4 +111,14 @@ describe('Branch', () => {
 		copy_branch.pop();
 		expect(copy_branch).toStrictEqual(branch);
 	})
+
+	test('testa o metodo validate()', () => {
+		const branch = new Branch();
+
+		expect(branch.validate('a', 1)).toStrictEqual({ error: false });
+		expect(branch.validate('b', 1)).not.toStrictEqual({ error: true });
+
+		expect(branch.validate('a', 1)).toStrictEqual({ error: false });
+		expect(branch.validate('a', 5)).toStrictEqual({ error: true });
+	})
 })
