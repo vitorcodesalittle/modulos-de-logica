@@ -28,10 +28,6 @@ function App() {
     }
   ]
 
-  useEffect(() => {    
-    return () => {}
-  }, [  ])
-
   return (
     <div className="App">
       <BrowserRouter>
