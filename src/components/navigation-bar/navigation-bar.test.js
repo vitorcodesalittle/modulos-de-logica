@@ -41,7 +41,7 @@ describe("NavigationBar component", () => {
     expect(linkRoute2).toBeInTheDocument();
   });
 
-  test('changes location when clicking in link', () => {
+  test('changes location when clicking in link with selected css class in navigation link clicked', () => {
     const mockRoutes = [
       {
         to: '/route1',
@@ -63,6 +63,6 @@ describe("NavigationBar component", () => {
       fireEvent.click(linkRoute1);
     })
     expect(window.location.pathname).toBe('/route1');
-
+    expect(linkRoute1.className.includes(' selected')).toBe(true);
   });
 })

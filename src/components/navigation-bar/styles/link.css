@@ -1,0 +1,10 @@
+.Link {
+  color: black;
+  display: inline-flex;
+  text-decoration: none;
+  padding-bottom: 5px;
+}
+
+.selected {
+  border-bottom: 1px solid black;
+}

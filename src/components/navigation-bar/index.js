@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from './link';
+import { useLocation } from 'react-router-dom';
+import './styles/navigation-bar.css';
 
 /**
  * 
@@ -8,11 +10,12 @@ import Link from './link';
  */
 const NavBar = function(props) {
   const { routes } = props;
+  const { pathname } = useLocation();
 
   return (
     <div className='Navbar'>
       {
-        routes.map(({ to, title }, idx) => <Link key={idx} to={to}>{title}</Link>)
+        routes.map(({ to, title }, idx) => <Link key={idx} to={to} selected={pathname === to}>{title}</Link>)
       }
     </div>
   )
