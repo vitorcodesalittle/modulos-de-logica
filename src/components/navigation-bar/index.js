@@ -6,7 +6,7 @@ import './styles/navigation-bar.css';
 /**
  * 
  * @param {Object} props
- * @param {{ href: String, title: String }[]} props.routes
+ * @param {{ to: String, title: String }[]} props.routes
  */
 const NavBar = function(props) {
   const { routes } = props;

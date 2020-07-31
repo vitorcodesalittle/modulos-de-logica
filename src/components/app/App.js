@@ -1,38 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 
-import ExerciseBuilder from '../exercise-builder';
 import NavBar from '../navigation-bar';
 import { BrowserRouter } from 'react-router-dom';
-
-
+import Router, { appRoutes } from '../routes';
 
 function App() {
 
-  const appRoutes = [
-    {
-      to: '/monitores',
-      title: 'Monitores'
-    },
-    {
-      to: '/about',
-      title: 'Sobre',
-    },
-    {
-      to: '/materials',
-      title: 'Materiais',
-    },
-    {
-      to: '/extras',
-      title: 'Extras',
-    }
-  ]
 
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar routes={appRoutes}/>
-        <ExerciseBuilder/>
+        <NavBar routes={appRoutes.map(routerProps => ({ to: routerProps.path, title: routerProps.title }))}/>
+        <Router/>
       </BrowserRouter>
     </div>
   );
