@@ -1,11 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router';
-import About from './about';
-import Extras from './extras';
+import { Route, Switch } from 'react-router';
 import Home from './home';
-import Materials from './materials';
-import Monitores from './monitores';
-
+import Module from './module';
+import Notas from './notas';
+import Cronograma from './cronograma';
 
 export const appRoutes = [
   {
@@ -15,34 +13,31 @@ export const appRoutes = [
     exact: true,
   },
   {
-    path: '/monitores',
-    title: 'Monitores',
-    component: Monitores,
+    path: '/roteiros',
+    title: 'Roteiros',
+    component: Module
   },
   {
-    path: '/about',
-    title: 'Sobre',
-    component: About,
+    path: '/cronograma',
+    title: 'Cronograma',
+    component: Cronograma,
   },
   {
-    path: '/materials',
-    title: 'Materiais',
-    component: Materials,
+    path: '/notas',
+    title: 'Notas',
+    component: Notas,
   },
-  {
-    path: '/extras',
-    title: 'Extras',
-    component: Extras
-  }
 ]
 
 const Router = function (props) {
 
   return (
     <>
-    {
-      appRoutes.map((routeProps) => <Route key={routeProps.path} {...routeProps}/>)
-    }
+      <Switch>
+      {
+        appRoutes.map((routeProps) => <Route key={routeProps.path} {...routeProps}/>)
+      }
+      </Switch>
     </>
   )
 
