@@ -1,11 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router';
-import About from './about';
-import Extras from './extras';
+import { Route, Switch } from 'react-router';
 import Home from './home';
-import Materials from './materials';
-import Monitores from './monitores';
-
+import Notas from './notas';
+import Cronograma from './cronograma';
+import MenuModulos from './roteiros/menu-modulos';
+import Modulo from './roteiros/modulo';
+import Submodulo from './roteiros/submodulos'
 
 export const appRoutes = [
   {
@@ -15,34 +15,49 @@ export const appRoutes = [
     exact: true,
   },
   {
-    path: '/monitores',
-    title: 'Monitores',
-    component: Monitores,
+    path: '/roteiros',
+    title: 'Roteiros',
+    component: MenuModulos,
+    exact: true,
+    routes: [
+      {
+        path: '/roteiros/:modulo',
+        component: Modulo,
+        exact: true,
+        routes: [
+          {
+            path: '/roteiros/:modulo/:submodulo',
+            component: Submodulo,
+            exact: true
+          }
+        ]
+      }
+    ]
   },
   {
-    path: '/about',
-    title: 'Sobre',
-    component: About,
+    path: '/cronograma',
+    title: 'Cronograma',
+    component: Cronograma,
   },
   {
-    path: '/materials',
-    title: 'Materiais',
-    component: Materials,
+    path: '/notas',
+    title: 'Notas',
+    component: Notas,
   },
-  {
-    path: '/extras',
-    title: 'Extras',
-    component: Extras
-  }
 ]
 
 const Router = function (props) {
 
   return (
     <>
-    {
-      appRoutes.map((routeProps) => <Route key={routeProps.path} {...routeProps}/>)
-    }
+      <Switch>
+        <Route component={Home} path='/' exact/>
+        <Route component={MenuModulos} path='/roteiros' exact/>
+        <Route component={Modulo} path='/roteiros/:modulo' exact/>
+        <Route component={Submodulo} path='/roteiros/:modulo/:submodulo' exact/>
+        <Route component={Cronograma} path='/cronograma' exact/>
+        <Route component={Notas} path='/notas' exact/>
+      </Switch>
     </>
   )
 

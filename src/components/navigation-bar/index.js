@@ -21,4 +21,6 @@ const NavBar = function(props) {
   )
 }
 
+export { Link };
+
 export default NavBar;
