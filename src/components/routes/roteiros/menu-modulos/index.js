@@ -4,17 +4,17 @@ import { Link } from '../../../navigation-bar';
 const modulos = [
   {
     nome: 'Modulo 1',
-    link: '/roteiros/modulo1',
+    link: '/roteiros/mod1',
     texto: 'Esse é o primeiro módulo',
   },
   {
     nome: 'Modulo 2',
-    link: '/roteiros/modulo2',
+    link: '/roteiros/mod2',
     texto: 'Esse é o segundo módulo',
   },
   {
     nome: 'Modulo 3',
-    link: '/roteiros/modulo3',
+    link: '/roteiros/mod3',
     texto: 'Esse é o terceiro módulo',
   },
 ]
