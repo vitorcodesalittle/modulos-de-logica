@@ -27,13 +27,16 @@ class Tree {
 	}
 
 	show() {
-		console.log(this.node.formule.toString(), this.node.value);
+		let display = `${this.node.formule.toString()} ${this.node.value}\n`;
+
 		if (this.left) {
-			this.left.show();
+			display += this.left.show();
 		}
 		if (this.right) {
-			this.right.show();
+			display += this.right.show();
 		}
+		
+		return display;
 	}
 
 	create() {
@@ -54,12 +57,12 @@ class Tree {
 		if (node.formule.isAtom()) {
 			const { error } = branch.validate(node.formule.right, node.value);
 
+			this.right = new Tree(node);
+
 			if (error) {
 				stack.remove();
 				return;
 			}else {
-				const right_node = new Node(node.formule.right, node.value);
-				this.right = new Tree(right_node);
 				this.right.create();
 				return;
 			}

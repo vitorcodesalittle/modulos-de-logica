@@ -1,5 +1,5 @@
 import Branch from './Branch';
-import { FormulaProp } from '../FormulaProp/index';
+import FormulaProp from '../FormulaProp/index';
 import { Node } from './Tableaux';
 
 describe('Branch', () => {
@@ -120,5 +120,6 @@ describe('Branch', () => {
 
 		expect(branch.validate('a', 1)).toStrictEqual({ error: false });
 		expect(branch.validate('a', 5)).toStrictEqual({ error: true });
+		expect(branch.validate('a', 1)).toStrictEqual({ error: false });
 	})
 })

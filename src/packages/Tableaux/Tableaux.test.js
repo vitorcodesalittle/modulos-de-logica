@@ -1,24 +1,62 @@
-import { FormulaProp } from '../FormulaProp';
+import FormulaProp from '../FormulaProp';
 import Tableuax from './Tableaux';
+import Graph from './Graph';
 
 const formula = [
-	'(a & b)',
-	'(a | b)',
-	'(a -> b)',
-	'(!a)',
-	'(a -> (b | c))',
-	'(((a -> b) & (b -> c)) -> (a -> c))'
+	'((p->q) -> ((q->r) -> ((p|q)->r)))',
+	'(  (P | ( (! Q) & R)) -> ( (Q | ! R) -> P  ))',
+	'((( p -> ((r-> s)| (q->t)) ) & (p & t) )& ((q|v) & (!s)))',
+	'((( A -> (B| W) )&  (( ! ( B | P) )  & (W -> P))  )  ->    (! A ) )',
+	' ( ( ! ((  (!A) | B ) & ( C | ( ! (A & B) ) ))) | ( ! ( A | (B &C) ) ) )',
+	'(( ! ( !(( (! P) &Q) -> R ) ) |  ( ! ( P -> ((!P) - > Q )) ) )  | (! ( R -> (!Q)) )    )',
+	'( ( ( !  ( ( ( ( ! A ) -> B ) & ( C -> ( D | E ) ) ) & ( D -> (! C) ) ) ) | ( ( ! A ) | ( ! E ) ) ) -> ( ( ! C )|B ) )',
 ]
 
-describe('Testa o tableaux', () => {
-	test('Testa o constructor do tableaux', () => {
-		let formule = new FormulaProp(formula[5]);
+function printTableaux(tree) {
+	let display = `${tree.node.formule.toString()} ${tree.node.value}\n`;
 
-		let tableaux = new Tableuax(formule, 0);
+	if (tree.left) {
+		display += printTableaux(tree.left);
+	}
+	if (tree.right) {
+		display += printTableaux(tree.right);
+	}
+	
+	return display;
+}
 
-		console.log('------------- Show Tree -------------')
-		tableaux.tree.show();
+function printGraph(graph, p) {
+	let display = `${graph.nodes[p].formule.toString()} ${graph.nodes[p].value}\n`;
 
-		expect('a').toBe('a');
-	})
+	if (Number.isInteger(graph.vertices[p][1])) {
+		display += printGraph(graph, graph.vertices[p][1]);
+		if (Number.isInteger(graph.vertices[p][2])) {
+			display += printGraph(graph, graph.vertices[p][2]);
+		}
+	}
+	
+	return display;
+}
+
+describe('Testa', () => {
+	// let i = 0;
+	for (let i = 0; i < 7; i++ ){
+		test(` o tableaux e grafo da formula ${i}`, () => {
+			let formule = new FormulaProp(formula[i]);
+			
+			let tableaux = [];
+			let graph = [];
+
+			for  (let j = 0; j <= 1; j++) {
+				tableaux[j] = new Tableuax(formule, j);
+				graph[j] = new Graph(tableaux[j].tree);
+				const resTab = printTableaux(tableaux[j].tree);
+				const resGra = printGraph(graph[j], 0);
+
+				console.log(`	Tableaux\n${resTab}\n\n	Graph\n${resGra}`);
+				expect(resTab).toBe(resGra);
+			}
+		})
+	}
+
 })

@@ -38,7 +38,7 @@ class Branch {
 	validate(variable, value) {
 		const result = { error: false };
 		const exist = this.values[variable];
-		if (exist) {
+		if (exist !== undefined) {
 			if (exist !== value) {
 				result.error = true;
 			}

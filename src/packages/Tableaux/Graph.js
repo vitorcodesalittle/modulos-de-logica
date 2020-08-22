@@ -4,7 +4,7 @@ class Graph {
 		this.vertices = [];
 		this.i = 0;
 
-		this.calculate(tree);
+		this.calculate(tree, 0);
 	}
 
 	calculate(tree, prev) {
@@ -17,7 +17,7 @@ class Graph {
 			this.nodes.push(node);
 			this.i++;
 			this.vertices[n].push(this.i);
-			this.calculate(tree.left);
+			this.calculate(tree.left, n);
 		}
 
 		if (tree.right) {
@@ -25,7 +25,7 @@ class Graph {
 			this.nodes.push(node);
 			this.i++;
 			this.vertices[n].push(this.i);
-			this.calculate(tree.right);
+			this.calculate(tree.right, n);
 		}
 	}
 }
@@ -33,8 +33,8 @@ class Graph {
 class GNode {
 	constructor() {
 		this.variables = {};
-		this.formule;
-		this.value;
+		this.formule = null;
+		this.value = null;
 	}
 
 	init(node) {
@@ -53,3 +53,5 @@ class GNode {
 		return copy;
 	}
 }
+
+export default Graph;

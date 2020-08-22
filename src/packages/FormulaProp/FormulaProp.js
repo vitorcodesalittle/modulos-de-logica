@@ -43,7 +43,7 @@ export const parse = (formula) => {
         openedParenthesis += 1;
       } else if (char === ')') {
         openedParenthesis -= 1;
-      } else if (operatorThatStartsWith[char]) { // verifica se existe uma primeira letra no array firstCharOfOp q é igual a char
+	  } else if (operatorThatStartsWith[char]) { // verifica se existe uma primeira letra no array firstCharOfOp q é igual a char
         if (openedParenthesis === 0) {
           result.parsedOperator = operatorThatStartsWith[char];
           let offset = operatorThatStartsWith[char].length;
@@ -76,7 +76,7 @@ class FormulaProp {
     this.right = null;
     this.operator = null;
     if (formulaIsValida(formula)) {
-      const formulaParseada = parse(formula);
+      const formulaParseada = parse(formula.trim());
       const {
         pedacoFormulaEsquerda,
         pedacoFormulaDireita,
@@ -107,9 +107,9 @@ class FormulaProp {
       return this.right;
     } else {
       if (this.isOpUnary()) {
-        return `(${this.operator}${this.right.toString()})`
+        return `( ${this.operator}${this.right.toString()})`
       } else {
-        return `(${this.left.toString()}${this.operator}${this.right.toString()})`
+        return `(${this.left.toString()} ${this.operator} ${this.right.toString()})`
       }
     }
   }
