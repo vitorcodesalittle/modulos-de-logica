@@ -5,83 +5,110 @@ import FormulaProp from '../../../packages/FormulaProp';
 import Tableaux from '../../../packages/Tableaux/Tableaux';
 import Graph from '../../../packages/Tableaux/Graph';
 
-/* Raio do nó que será desenhado */
-const NODE_RADIUS = 20;
-
-/* Criar Tableaux e grafo */
-const f = '((A | B) -> C)';
-const formula = new FormulaProp(f);
-const tableaux = new Tableaux(formula, 1);
-const grafinho = new Graph(tableaux.tree);
-
-/* Mock input */
-const nodes = [
-  { label: 'A', pos: [ 50, 50 ], selected: false },
-  { label: 'B', pos: [30, 30 ], selected: false }
-]
-const edges = [
-  { labelFrom: 'A', labelTo: 'B' }
-]
-
-function len(vec) {
-  const [ x, y ] = vec;
-  return Math.sqrt(x * x + y * y)
-}
-
-function drawNodes(p5) {
-  nodes.forEach(({ label, pos: [ x, y], selected }) => {
-    if (selected) {
-      p5.circle(p5.mouseX, p5.mouseY, NODE_RADIUS)
-    } else {
-      p5.circle(x, y, NODE_RADIUS)
-    }
-  })
-}
-
-function sumVec(vecA, vecB) {
-  const [ xA, yA ] = vecA;
-  const [ xB, yB ] = vecB;
-  return [xA + xB, yA + yB]
-}
-
-function vecTimesCte([x, y], cte) {
-  return [cte * x, cte * y]
-}
-
-const findNodeWithLabel = label => nodes.find(n => n.label === label)
-
-/* desenha linhas das arestas a partir das posições dos nodes */
-function drawEdges(p5) {
-  edges.forEach(e => {
-    const { labelFrom, labelTo } = e;
-    const nodeFrom = findNodeWithLabel(labelFrom);
-    const nodeTo = findNodeWithLabel(labelTo);
-    if (!nodeFrom || !nodeTo) {
-      throw new Error("check labels")
-    }
-    const [ xFrom, yFrom ] = nodeFrom.selected ? [ p5.mouseX, p5.mouseY ] : nodeFrom.pos;
-    const [ xTo, yTo ] = nodeTo.selected ? [ p5.mouseX, p5.mouseY] : nodeTo.pos;
-    p5.line(xFrom, yFrom, xTo, yTo)
-  })
-}
-
-function setup(p5) {
-  p5.createCanvas(800, 400);
-
-  const formula = ''
-}
-
-function draw(p5) {
-  p5.background(220);
-  drawEdges(p5);
-  drawNodes(p5);
-}
+const FORMULA = '((p->q) -> ((q->r) -> ((p|q)->r)))';
 
 const TableauxExercise = function(props) {
+	const formula = new FormulaProp(FORMULA);
+	const tableaux = new Tableaux(formula, 0);
+	const graph = new Graph(tableaux);
 
-  return (
-      <Sketch setup={setup} draw={draw}/>
-  )
+	const RADIUS = 15;
+	const SCALE = 50;
+
+	let xTrans, yTrans;
+
+	function scale(val, d) {
+		let res = 0;
+
+		if (val < 0) {
+			res = (val + d) * SCALE;
+		}else if (val > 0) {
+			res = (val - d) * SCALE;
+		}
+
+		return res;
+	}
+
+	function setup(p5) {
+		p5.createCanvas(1000, 600);
+		xTrans = p5.width / 2;
+		yTrans = 0;
+	}
+
+	function draw(p5) {
+		p5.background(100);
+		p5.translate(xTrans, yTrans);
+
+		if (p5.mouseIsPressed) {
+			xTrans += p5.movedX;
+			yTrans += p5.movedY;
+		}
+
+		drawConnections(p5);
+		drawPoints(p5);
+		drawSentence(p5);
+	}
+
+	function drawSentence(p5) {
+		for (const node of graph.nodes) {
+			p5.fill(0);
+			p5.noStroke();
+
+			p5.textSize(16);
+			p5.textAlign(p5.LEFT, p5.CENTER);
+
+			let xPos = scale(node.position.x, 1) + 15;
+			let yPos = scale(node.position.y, 0);
+
+			if (node.orientation < 0) {
+				p5.textAlign(p5.RIGHT, p5.CENTER);
+				xPos -= 30;
+			}
+
+			let sentence = node.formule.toString();
+			sentence = `${node.isAtom 	? `V^( ${sentence} )` : `V^${sentence}`} = ${node.value}`
+
+			p5.text(sentence, xPos, yPos);
+		}
+	}
+
+	function drawConnections(p5) {
+		p5.stroke(0);
+		p5.strokeWeight(2);
+		
+		graph.vertices.forEach((vertices, i) => {
+			let { x: x1, y: y1 } = graph.nodes[i].position;
+			x1 = scale(x1, 1);
+			y1 = scale(y1, 0);
+
+			for (let j = 1; j < vertices.length; j++) {
+				let t = vertices[j];
+
+				let { x: x2, y: y2 } = graph.nodes[t].position;
+				x2 = scale(x2, 1);
+				y2 = scale(y2, 0);
+
+				p5.line(x1, y1, x2, y2);
+			}
+		})
+	}
+
+	function drawPoints(p5) {
+		p5.fill(200);
+		p5.stroke(0);
+		p5.strokeWeight(1);
+
+		for (const node of graph.nodes) {
+			const xPos = scale(node.position.x, 1);
+			const yPos = scale(node.position.y, 0);
+
+			p5.ellipse(xPos, yPos, RADIUS);
+		}
+	}
+
+	return (
+		<Sketch setup={setup} draw={draw} />
+	)
 }
 
 export default TableauxExercise;

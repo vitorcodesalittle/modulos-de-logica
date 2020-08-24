@@ -26,12 +26,27 @@ function printTableaux(tree) {
 }
 
 function printGraph(graph, p) {
-	let display = `${graph.nodes[p].formule.toString()} ${graph.nodes[p].value}\n`;
+	const node = graph.nodes[p];
+	let display = `${node.formule.toString()} ${node.value}\n`;
 
 	if (Number.isInteger(graph.vertices[p][1])) {
 		display += printGraph(graph, graph.vertices[p][1]);
 		if (Number.isInteger(graph.vertices[p][2])) {
 			display += printGraph(graph, graph.vertices[p][2]);
+		}
+	}
+	
+	return display;
+}
+
+function printGraph2(graph, p) {
+	const node = graph.nodes[p];
+	let display = `x: ${node.position.x}, y: ${node.position.y}, o: ${node.orientation}\n`;
+
+	if (Number.isInteger(graph.vertices[p][1])) {
+		display += printGraph2(graph, graph.vertices[p][1]);
+		if (Number.isInteger(graph.vertices[p][2])) {
+			display += printGraph2(graph, graph.vertices[p][2]);
 		}
 	}
 	
@@ -49,11 +64,12 @@ describe('Testa', () => {
 
 			for  (let j = 0; j <= 1; j++) {
 				tableaux[j] = new Tableuax(formule, j);
-				graph[j] = new Graph(tableaux[j].tree);
+				graph[j] = new Graph(tableaux[j]);
 				const resTab = printTableaux(tableaux[j].tree);
 				const resGra = printGraph(graph[j], 0);
+				const resGra2 = printGraph2(graph[j], 0);
 
-				console.log(`	Tableaux\n${resTab}\n\n	Graph\n${resGra}`);
+				console.log(`	Tableaux\n${resTab}\n\n	Graph\n${resGra}\n\n${resGra2}`);
 				expect(resTab).toBe(resGra);
 			}
 		})
